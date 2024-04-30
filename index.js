@@ -40,7 +40,8 @@ async function main(options) {
                     const jobTemplate = readFileSync(path.join(templatePath, jobConfig.template), "utf8");
                     const cwd = path.join(templatePath, jobConfig.rootPath);
 
-                    let jobRoot = jobConfig.rootPath.match(/(.*)[\/\\]/)[1]||'';
+                    let jobRoot = jobConfig.rootPath;
+                    jobRoot.substring(0, Math.max(jobRoot.lastIndexOf("/"), jobRoot.lastIndexOf("\\")));
 
                     globby(
                         [
