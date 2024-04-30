@@ -67,7 +67,7 @@ async function main(options) {
                             let job = jobTemplate;
                             if(exclude.indexOf(name)>=0) continue;
                             let safe = name.replace(/-/g, '_');
-                            job = job.replace(/{other}/g, `{other:${name}}`).replace(/{name}/g, name).replace(/{safe}/g, safe).replace(/{package}/g, packageName).replace(/{full}/g, fullName);
+                            job = job.replace(/{other}/g, `{other:${name}}`).replace(/{path}/g,jobConfig.rootPath).replace(/{name}/g, name).replace(/{safe}/g, safe).replace(/{package}/g, packageName).replace(/{full}/g, fullName);
                             jobs.push(job);
                         }
 
