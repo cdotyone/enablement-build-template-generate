@@ -41,14 +41,12 @@ async function main(options) {
                     const cwd = path.join(templatePath, jobConfig.rootPath);
 
                     let jobRoot = jobConfig.rootPath.replace(/^[\.\/\\]+/, '');
+                    let search = options.exclude;
 
-                    globby(
-                        [
-                            `./**/package.json`,
-                            `!**/node_modules`
-                        ],
-                        { cwd: cwd },
-                    ).then((images)=>{
+                    search.unshift(`./**/package.json`);
+                    search.push(`!**/node_modules`);
+
+                    globby(search,{ cwd: cwd }).then((images)=>{
                         images.sort();
                         let jobs = [];
                         let exclude = jobConfig.exclude||[];
@@ -118,6 +116,7 @@ async function main(options) {
 
 let options = {
     config: "./.cicd/templates/templated.json",
+    exclude: [],
     debug: false,
     push: true
 }
@@ -128,6 +127,9 @@ for (let i = 2; i < argv.length; i++) {
     if (argv[i] === "--debug") { options.debug = true; continue; }
     if (argv[i].substring(0, 2) === "--") {
         let name = argv[i].substring(2);
+        if (name==="exclude") {
+            options[name] = argv[i + 1].split(',');
+            i++;
         if (options[name] !== undefined) {
             options[name] = argv[i + 1];
             i++;
