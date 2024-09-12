@@ -51,9 +51,6 @@ async function main(options) {
 
                     let jobRoot = jobConfig.rootPath.replace(/^[\.\/\\]+/, '');
 
-
-                    console.log(search);
-
                     globby(search,{ cwd: cwd }).then((images)=>{
                         images.sort();
                         let jobs = [];

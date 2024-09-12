@@ -1,6 +1,6 @@
 {
   "name": "enablement-build-template-generate",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Generates build yaml for mono repos",
   "type": "module",
   "module": "./index.js",
@@ -9,6 +9,7 @@
   "dependencies": {
     "globby": "^14.0.1"
   },
+
   "scripts": {
     "start": "node index.js"
   },
