@@ -43,6 +43,12 @@ async function main(options) {
                     let jobRoot = jobConfig.rootPath.replace(/^[\.\/\\]+/, '');
                     let search = options.exclude;
 
+                    if(search.length) {
+                        for(let i=0;i<search.length;i++) {
+                            search[i]='!**/'+search[i];
+                        }
+                    }
+
                     search.unshift(`./**/package.json`);
                     search.push(`!**/node_modules`);
 
