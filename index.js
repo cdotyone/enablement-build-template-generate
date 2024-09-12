@@ -136,7 +136,7 @@ for (let i = 2; i < argv.length; i++) {
         if (name==="exclude") {
             options[name] = argv[i + 1].split(',');
             i++;
-        if (options[name] !== undefined) {
+        } else if (options[name] !== undefined) {
             options[name] = argv[i + 1];
             i++;
         } else {
