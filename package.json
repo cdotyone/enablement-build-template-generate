@@ -1,6 +1,6 @@
 {
   "name": "enablement-build-template-generate",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "Generates build yaml for mono repos",
   "type": "module",
   "module": "./index.js",
@@ -8,9 +8,6 @@
   "bin": "./index.js",
   "dependencies": {
     "globby": "^14.0.1"
-  },
-  "publishConfig": {
-    "registry": "https://nexus.ingramcontent.com/repository/npm-hosted/"
   },
   "scripts": {
     "start": "node index.js"

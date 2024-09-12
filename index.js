@@ -28,6 +28,15 @@ async function main(options) {
 
     const plist = [];
 
+    let search = options.exclude;
+    if(search.length) {
+        for(let i=0;i<search.length;i++) {
+            search[i]='!**/'+search[i];
+        }
+    }
+    search.unshift(`./**/package.json`);
+    search.push(`!**/node_modules`);
+
     Object.keys(config).forEach((templateFilename)=>{
 
         plist.push(new Promise(async (primaryResolve, reject) => {
@@ -41,16 +50,9 @@ async function main(options) {
                     const cwd = path.join(templatePath, jobConfig.rootPath);
 
                     let jobRoot = jobConfig.rootPath.replace(/^[\.\/\\]+/, '');
-                    let search = options.exclude;
 
-                    if(search.length) {
-                        for(let i=0;i<search.length;i++) {
-                            search[i]='!**/'+search[i];
-                        }
-                    }
 
-                    search.unshift(`./**/package.json`);
-                    search.push(`!**/node_modules`);
+                    console.log(search);
 
                     globby(search,{ cwd: cwd }).then((images)=>{
                         images.sort();
@@ -134,7 +136,7 @@ for (let i = 2; i < argv.length; i++) {
     if (argv[i].substring(0, 2) === "--") {
         let name = argv[i].substring(2);
         if (name==="exclude") {
-            options[name] = argv[i + 1].split(',');
+            options[name] = argv[i + 1].replace(/\s/g,',').split(',');
             i++;
         } else if (options[name] !== undefined) {
             options[name] = argv[i + 1];
